@@ -19,7 +19,7 @@
 
 typedef struct
 {
-  VESC_t DriveMotor;           //8311电机
+  VESC_t DriveMotor;           //5055电机
   M2006_TypeDef SteeringMotor; // M2006电机
   PID2 Steering_Dir_PID; // 转向电机PID角度环控制器
   PID2 Steering_Vel_PID; // 转向电机PID速度环控制器
@@ -42,18 +42,13 @@ typedef struct
   GPIO_TypeDef *error_GPIO_Port; // 故障指示引脚端口
   uint16_t error_GPIO_Pin;       // 故障指示引脚号
   uint8_t ready_edge_flag;     // 舵轮处于奇点附近，舵轮已经复位（0b G000 HIJK）
-
-  Encoder_HandleTypeDef encoder; // 编码器读取2006角度
-
 } SteeringWheel;
 
 /*回调函数*/
-void SetWheelTarget_Callback(Wheel_t *_this, float rad, float velocity, float force);
 void WheelError_Callback(Chassis_t *_this, Wheel_t *wheel);
 Vector2D GetWheelVelocity_Callback(Wheel_t *_this);
 WheelState WheelState_Callback(Wheel_t *_this);
 void WheelReset_Callback(Wheel_t *_this);
-
 
 void LimitAngle(float* angle);
 float AngleDiffer(float angle1,float angle2);

@@ -45,16 +45,11 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-extern CAN_HandleTypeDef hcan2;
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-extern Encoder_HandleTypeDef encoderA;
-extern Encoder_HandleTypeDef encoderB;
-extern Encoder_HandleTypeDef encoderC;
-extern Encoder_HandleTypeDef encoderD;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/

@@ -24,13 +24,12 @@
 /* USER CODE BEGIN Includes */
 #include "Task_Init.h"
 #include "semphr.h"
-#include "JY61.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN TD */
-extern uint8_t usart4_dma_buff[30];
-extern QueueHandle_t Jy61_semaphore;
+extern uint8_t usart4_dma_buff[40];
+extern SemaphoreHandle_t Chassis_semaphore;
 /* USER CODE END TD */
 
 /* Private define ------------------------------------------------------------*/
@@ -336,9 +335,17 @@ void DMA1_Stream7_IRQHandler(void)
 void UART4_IRQHandler(void)
 {
   /* USER CODE BEGIN UART4_IRQn 0 */
-	HAL_UART_DMAStop(&huart4);
-	HAL_UART_Receive_DMA(&huart4, usart4_dma_buff, sizeof(usart4_dma_buff));
-	JY61_Receive(&JY61, usart4_dma_buff, sizeof(JY61));
+  if (__HAL_UART_GET_FLAG(&huart4, UART_FLAG_IDLE) && __HAL_UART_GET_IT_SOURCE(&huart4, UART_IT_IDLE))
+  {
+    HAL_UART_DMAStop(&huart4);
+    if (usart4_dma_buff[0] == 0xAB && usart4_dma_buff[17] == 0xBA)
+    {
+      BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+      xSemaphoreGiveFromISR(Chassis_semaphore, &xHigherPriorityTaskWoken);
+      portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+    }
+    HAL_UART_Receive_DMA(&huart4, usart4_dma_buff, sizeof(usart4_dma_buff));
+  }
   /* USER CODE END UART4_IRQn 0 */
   HAL_UART_IRQHandler(&huart4);
   /* USER CODE BEGIN UART4_IRQn 1 */

@@ -1,16 +1,6 @@
 #include "drive_callback.h"
 #include "semphr.h"
 
-extern SemaphoreHandle_t reset_semaphore;
-
-void SetWheelTarget_Callback(Wheel_t *_this, float rad, float velocity, float force)
-{
-    SteeringWheel *steeringwheel = (SteeringWheel *)_this->user_data;
-    steeringwheel->expectDirection = RAD2ANGLE(rad);
-    steeringwheel->expextVelocity = velocity;
-		steeringwheel->expextForce  =force * n * wheel_radius * 60.0f / (2.0f * PI * KV) * 0.7375f * cosf(ANGLE2RAD(steeringwheel->putoutDirection - steeringwheel->currentDirection));
-}
-
 void WheelReset_Callback(Wheel_t *_this)
 {
 	SteeringWheel *steeringwheel = (SteeringWheel *)_this->user_data;
