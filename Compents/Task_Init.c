@@ -94,7 +94,7 @@ void Wheel_Task(void *pvParameters)
 			PID_Control2(swheel->currentDirection, swheel->putoutDirection, &swheel->Steering_Dir_PID);//角度环
 			PID_Control2(swheel->SteeringMotor.Speed, swheel->Steering_Dir_PID.pid_out, &swheel->Steering_Vel_PID);//速度环
 			
-			PID_Control_d(swheel->DriveMotor.epm / 7.0f, (swheel->putoutVelocity / wheel_radius / (2.0f * PI) * 60.0f) * 5.0f, &swheel->Driver_Vel_PID);
+			PID_Control_d(swheel->DriveMotor.epm / 7.0f, (swheel->putoutVelocity / wheel_radius / (2.0f * PI) * 60.0f) * 3.3333334f, &swheel->Driver_Vel_PID);
       
 			vTaskDelayUntil(&last_wake_time, pdMS_TO_TICKS(2));
     }
