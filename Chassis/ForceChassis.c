@@ -6,7 +6,7 @@
 
 float velocity[8] = {0};
 TaskHandle_t task_handle;
-WheelState state;
+WheelState state = WHEEL_IDEL;
 void ChassisCalculateProcess(void *param)
 {
     Chassis_t *chassis = (Chassis_t *)param;

@@ -64,19 +64,19 @@ void Wheel_Task(void *pvParameters)
     Wheel_t *wheel=(Wheel_t *)pvParameters;
     SteeringWheel *swheel = (SteeringWheel *)wheel->user_data;
 
-    swheel->Steering_Vel_PID.Kp = 10.0f;
+    swheel->Steering_Vel_PID.Kp = 8.0f;
     swheel->Steering_Vel_PID.Ki = 0.01f;
     swheel->Steering_Vel_PID.Kd = 0.0f;
     swheel->Steering_Vel_PID.limit = 10000.0f;
     swheel->Steering_Vel_PID.output_limit = 9600.0f;
 
-    swheel->Steering_Dir_PID.Kp = 200.0f;
+    swheel->Steering_Dir_PID.Kp = 170.0f;
     swheel->Steering_Dir_PID.Ki = 0.0f;
     swheel->Steering_Dir_PID.Kd = 3.0f;
     swheel->Steering_Dir_PID.limit = 10.0f;
     swheel->Steering_Dir_PID.output_limit = 10000.0f;
 
-    swheel->Driver_Vel_PID.Kp = 1.0f;
+    swheel->Driver_Vel_PID.Kp = 0.8f;
     swheel->Driver_Vel_PID.Ki = 0.002f;
     swheel->Driver_Vel_PID.Kd = 4.5f;
     swheel->Driver_Vel_PID.limit = 10000.0f;
